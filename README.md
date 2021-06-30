@@ -205,7 +205,7 @@ can use the `.length` property to find out how many came back.
 If you recall the `for` loop syntax you might try to write a loop which prints
 out the `innerHTML` property of every element in the collection. You might find
 doing so much easier if you save the results of
-`document.getElementsByClassName()` to a variable: `var elements =
+`document.getElementsByClassName()` to a variable: `const elements =
 document.getElementsByClassName('yourClassNameHere')`.
 
 #### `document.getElementsByTagName()`
