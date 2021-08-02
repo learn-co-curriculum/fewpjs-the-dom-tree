@@ -17,14 +17,14 @@ DOM programming is using JavaScript to:
 In previous lessons we were given the command to find the HTML element we
 wanted:
 
-```javascript
-document.querySelector(selector)
+```js
+document.querySelector(selector);
 ```
 
-The _selector_ is like a query string that lets us find things within an HTML page. It's
-like how SQL finds records in a database. What is the syntax of this _selector_? How
-does the _selector_ navigate through our document to find the DOM nodes that we want
-to work with (update, move, even delete!)?
+The _selector_ is like a query string that lets us find things within an HTML
+page. It's like how SQL finds records in a database. What is the syntax of this
+_selector_? How does the _selector_ navigate through our document to find the
+DOM nodes that we want to work with (update, move, even delete!)?
 
 To understand those queries or "_selectors_", we first need to talk about how the DOM tree
 (i.e. what we see in the 'Elements' panel of our DevTools) is used to help the
@@ -47,13 +47,14 @@ elements. So basically, we can imagine a tree upside down.
 The HTML for this "tree" would be:
 
 ```html
-<!DOCTYPE HTML>
+<!DOCTYPE html>
 <html>
   <head>
     <title>My Title</title>
   </head>
   <body>
-    <h1>A heading</h1><a href="http://example.com">Link text</a>
+    <h1>A heading</h1>
+    <a href="http://example.com">Link text</a>
   </body>
 </html>
 ```
@@ -61,9 +62,9 @@ The HTML for this "tree" would be:
 ### Describe How the DOM Works as a Tree
 
 Every tree can contain subtrees, which we can treat independently of their
-parent trees. They repeat the pattern and appearance of the full tree, despite 
-being a smaller part of a tree, like branches. Every child has experienced this 
-sense of wonder when they take a fallen branch and stick it in the ground and 
+parent trees. They repeat the pattern and appearance of the full tree, despite
+being a smaller part of a tree, like branches. Every child has experienced this
+sense of wonder when they take a fallen branch and stick it in the ground and
 think that they've planted their own tree.
 
 Practically speaking, the DOM begins at `<html>`, but for now we should avoid
@@ -71,7 +72,7 @@ changing what's between the `<head></head>` tags. Most of the time, we will look
 at the DOM subtree with its root at `<body>` and only change things that will be
 visible on the page. We might also deal with subtrees. For example, if we have
 
-``` html
+```html
 <body>
   <div>
     <p>Hi!</p>
@@ -85,7 +86,7 @@ visible on the page. We might also deal with subtrees. For example, if we have
 
 Our tree looks like this:
 
-``` shell
+```txt
         body
         /  \
       div   div
@@ -97,7 +98,7 @@ Our tree looks like this:
 
 Similarly, if we had a DOM subtree that looked like
 
-``` html
+```html
 <div>
   <div>
     <h1>Hello!</h1>
@@ -109,9 +110,9 @@ Similarly, if we had a DOM subtree that looked like
 </div>
 ```
 
-The tree would look like: 
+The tree would look like:
 
-``` shell
+```txt
          div
         /  \
       div   div
@@ -123,18 +124,18 @@ The tree would look like:
 
 ### Ask the DOM to Find or "select" an HTML Element or Elements in the Rendered Page
 
-In creating the HTML for a page, including metadata for a node (e.g., a `class` 
-or `id` attribute) will not only provide useful information about that node, but will also 
-make it and its children easier to find. The more specific the metadata is, the
-more helpful it is for finding the desired element.
+In creating the HTML for a page, including metadata for a node (e.g., a `class`
+or `id` attribute) will not only provide useful information about that node, but
+will also make it and its children easier to find. The more specific the
+metadata is, the more helpful it is for finding the desired element.
 
 For the following exercises, you can experiment with any page on the
 Internet. It's fun to change "The New York Times" or Facebook.
 
 #### Finding a Node
 
-JavaScript exposes a few ways of finding DOM nodes, either directly or in stages, 
-courtesy of the `document` object.
+JavaScript exposes a few ways of finding DOM nodes, either directly or in
+stages, courtesy of the `document` object.
 
 ##### `document.getElementById()`
 
@@ -153,17 +154,20 @@ Given the following DOM tree:
 We could find the `h5` element with `document.getElementById('greeting')`.
 
 Notice how the `id` that we pass to `getElementById` is identical to the `id` in
-`<h5 id="greeting">`. 
+`<h5 id="greeting">`.
 
 _Note: You can use either single('') or double("") quotes around
-the `id` within the parentheses in `document.getElementById('yourIDGoesHere')`, 
+the `id` within the parentheses in `document.getElementById('yourIDGoesHere')`,
 as long as you use the same kind to open and close them!_
 
 **Try it out!**
 
-Open up your DevTools and find an element on the page — make note of its `id`.
-Then open up your console, type `document.getElementById('theIdYouTookNoteOf')`,
-and check out your handy-dandy DOM node.
+Open up your DevTools on any webpage (like [this one][bread]) and find an
+element on the page with an `id` attribute. Make note of its `id`. Then open up
+your console, type `document.getElementById('theIdYouTookNoteOf')`, and check
+out your handy-dandy DOM node.
+
+[bread]: https://en.wikipedia.org/wiki/Bread
 
 #### `document.getElementsByClassName()`
 
@@ -176,7 +180,7 @@ of all the elements with the given class. You can iterate over an
 
 Given the following DOM tree:
 
-``` html
+```html
 <!-- the `className` attribute is called `class` in HTML  -->
 <div>
   <div class="banner">
@@ -205,14 +209,17 @@ can use the `.length` property to find out how many came back.
 If you recall the `for` loop syntax you might try to write a loop which prints
 out the `innerHTML` property of every element in the collection. You might find
 doing so much easier if you save the results of
-`document.getElementsByClassName()` to a variable: `const elements =
-document.getElementsByClassName('yourClassNameHere')`.
+`document.getElementsByClassName()` to a variable:
+
+```js
+const elements = document.getElementsByClassName("yourClassNameHere");
+```
 
 #### `document.getElementsByTagName()`
 
-You can use this method if you _don't_ know an element's `id` or `class`, 
-but you _do_ know its tag name (the tag name is the thing between the `<>`, 
-e.g., `'div'`, `'h1'`, `header`, `article` etc.).  Since tag names aren't 
+You can use this method if you _don't_ know an element's `id` or `class`,
+but you _do_ know its tag name (the tag name is the thing between the `<>`,
+e.g., `'div'`, `'h1'`, `header`, `article` etc.). Since tag names aren't
 unique, this method returns an `HTMLCollection` also.
 
 **Try it out!**
@@ -254,29 +261,29 @@ Here we're going to use a mix of different `methods` to accomplish the goal.
 
 Let's start by getting the `<main>` element
 
-```javascript
-const main = document.getElementsByTagName('main')[0]
+```js
+const main = document.getElementsByTagName("main")[0];
 ```
 
 Then we can get the children of `main` using `main.children`, so we can get the
 second child with `main.children[1]`.
 
-```javascript
-const div = main.children[1]
+```js
+const div = main.children[1];
 ```
 
 Finally, we can get and update our `<p>` element with
 
-```javascript
+```js
 // we can call getElementsByTagName() on an _element_
 // to constrain the search to its children!
-const p = div.getElementsByTagName('p')[0]
+const p = div.getElementsByTagName("p")[0];
 ```
 
 And lastly we can change an attribute on the node. Let's change one's attribute!
 
-```javascript
-p.textContent = "Goodbye!"
+```js
+p.textContent = "Goodbye!";
 ```
 
 Obviously, this way of accessing that text isn't efficient and won't work on all
